@@ -1,0 +1,8 @@
+plugin: azure.azcollection.azure_rm
+include_vm_resource_groups:
+  - GRP3-LAB11-RG1
+auth_source: cli
+conditional_groups:
+  Debian: "'ubuntu' in image.offer"
+  RHEL: "'RHEL' in image.offer"
+plain_host_names: yes

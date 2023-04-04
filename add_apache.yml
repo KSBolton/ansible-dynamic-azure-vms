@@ -1,0 +1,39 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - block:
+    - name: Install Apache web server - Debian
+      package:
+        name: apache2
+        state: latest
+        update_cache: yes
+    - name: Check Apache status - Debian
+      service_facts:
+      register: svc_facts
+    
+    - name: Print Apache status - Debian
+      debug:
+        msg: "{{ ansible_hostname }}: {{svc_facts['ansible_facts']['services']['apache2.service']}}"  
+    when: ansible_distribution == "Ubuntu"
+  
+  - block:
+    - name: Install Apache web server - RedHat
+      package:
+        name: httpd
+        state: latest
+        update_cache: yes
+
+    - name: Start Apache service - RedHat
+      service: 
+        name: httpd
+        state: started
+
+    - name: Check Apache status - RedHat
+      service_facts:
+      register: svc_facts
+    
+    - name: Print Apache status - RedHat
+      debug:
+        msg: "{{ ansible_hostname }}: {{svc_facts['ansible_facts']['services']['httpd.service']}}"      
+    when: ansible_distribution == "RedHat"

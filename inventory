@@ -1,0 +1,11 @@
+[Debian]
+grp3-ansibletgt1
+
+[Debian:vars]
+apache_pkg=apache2
+
+[RHEL]
+grp3-ansibletgt2
+
+[RHEL:vars]
+apache_pkg=httpd

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+  - debug:
+      var: ansible_facts["cmdline"] 
+  - debug:
+      var: ansible_facts["memory_mb"] 
+  - debug:
+      var: ansible_facts["machine"]
+  - debug:
+      var: ansible_distribution

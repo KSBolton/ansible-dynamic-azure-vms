@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+  - debug:
+      var: ansible_facts["cmdline"] | type_debug
+  - debug:
+      var: ansible_facts["memory_mb"] | type_debug
+  - debug:
+      var: ansible_facts["machine"]|type_debug

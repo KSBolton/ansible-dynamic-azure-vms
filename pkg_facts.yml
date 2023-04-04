@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Check whether a package called foobar is installed
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.packages['sshd'] | length }} versions of foobar are installed!"

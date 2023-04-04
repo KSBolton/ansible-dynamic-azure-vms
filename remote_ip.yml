@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: Grab private IP
+      debug:
+        msg: "Private IP: {{ hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}"
+    - name: Grab public IP
+      command: curl https://ipv4.icanhazip.com
+      register: pip
+    - name: Print public IP
+      debug: 
+        msg: "Public IP: {{ pip.stdout }}"

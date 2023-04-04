@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - block:
+    - name: Remove Apache web server - Debian
+      package:
+        name: apache2
+        state: absent
+
+    - name: Check Apache status - Debian
+      service_facts:
+      register: svc_facts
+    
+    - name: Print Apache status - Debian
+      debug:
+        msg: "{{ ansible_hostname }}: {{svc_facts['ansible_facts']['services']['apache2.service']}}"  
+    when: ansible_distribution == "Ubuntu"
+  
+  - block:
+    - name: Remove Apache web server - RedHat
+      package:
+        name: httpd
+        state: absent
+
+    - name: Check Apache status - RedHat
+      service_facts:
+      register: svc_facts
+    
+    - name: Print Apache status - RedHat
+      debug:
+        msg: "{{ ansible_hostname }}: {{svc_facts['ansible_facts']['services']['httpd.service'] | default('httpd is not in packages list.')}}"           
+    when: ansible_distribution == "RedHat" 
